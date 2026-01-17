@@ -28,7 +28,7 @@ export const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-md py-3'
-          : 'bg-transparent py-5'
+          : 'bg-gradient-to-b from-black/60 via-black/30 to-transparent py-5'
       }`}
     >
       <div className="container-custom flex items-center justify-between">
@@ -38,10 +38,10 @@ export const Navbar = () => {
             <span className="text-primary-foreground font-bold text-xl">G</span>
           </div>
           <div className="flex flex-col">
-            <span className={`font-bold text-lg leading-tight ${isScrolled ? 'text-foreground' : 'text-foreground'}`}>
+            <span className={`font-bold text-lg leading-tight ${isScrolled ? 'text-foreground' : 'text-white drop-shadow-md'}`}>
               Glassology
             </span>
-            <span className={`text-xs font-medium ${isScrolled ? 'text-muted-foreground' : 'text-muted-foreground'}`}>
+            <span className={`text-xs font-medium ${isScrolled ? 'text-muted-foreground' : 'text-white/80 drop-shadow-md'}`}>
               Sydney
             </span>
           </div>
@@ -53,10 +53,14 @@ export const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`font-medium transition-colors hover:text-primary ${
-                location.pathname === link.path
-                  ? 'text-primary'
-                  : 'text-foreground'
+              className={`font-medium transition-colors ${
+                isScrolled
+                  ? location.pathname === link.path
+                    ? 'text-primary'
+                    : 'text-foreground hover:text-primary'
+                  : location.pathname === link.path
+                    ? 'text-primary-foreground drop-shadow-md'
+                    : 'text-white drop-shadow-md hover:text-primary-foreground'
               }`}
             >
               {link.name}
@@ -78,7 +82,7 @@ export const Navbar = () => {
         <div className="flex md:hidden items-center gap-2">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className={isScrolled ? '' : 'text-white drop-shadow-md'}>
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
